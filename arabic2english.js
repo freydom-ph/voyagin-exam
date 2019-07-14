@@ -50,12 +50,11 @@ const getEnglishValue = (param = process.argv[2]) => {
             tempValue = `${getSingleDigitValue(thirdNumber)} hundred ${tempValue}`;
         }
 
-        englishValue = `${tempValue} ${getExtension(i)}`;
-
+        englishValue = `${tempValue} ${getExtension(i)} ${englishValue}`;
     }
 
     console.log(englishValue.replace(/[\s]+/g, ' ').trim());
-    return englishValue.replace(/\s{2}/g, ' ').trim();
+    return englishValue.replace(/[\s]+/g, ' ').trim();
 };
 
 const getSingleDigitValue = number => {
