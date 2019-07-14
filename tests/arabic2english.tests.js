@@ -4,6 +4,14 @@ const arabic2Enlgish = require('../arabic2english');
 const assert = require('assert');
 
 describe('Tests the arabic2english module', () => {
+    it('should return "zero"', () => {
+        assert.strictEqual(arabic2Enlgish.getEnglishValue('0'), 'zero');
+        assert.strictEqual(arabic2Enlgish.getEnglishValue('00'), 'zero');
+        assert.strictEqual(arabic2Enlgish.getEnglishValue('000'), 'zero');
+        assert.strictEqual(arabic2Enlgish.getEnglishValue('0000'), 'zero');
+        assert.strictEqual(arabic2Enlgish.getEnglishValue('0000000000000'), 'zero');
+    });
+
     it('should return "one"', () => {
         assert.strictEqual(arabic2Enlgish.getEnglishValue('1'), 'one');
     });
