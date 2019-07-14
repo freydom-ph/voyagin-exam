@@ -34,6 +34,12 @@ const getEnglishValue = (param = process.argv[2]) => {
 
     param = param.split('').reverse().join('');
 
+    if (parseInt(param) === 0) {
+        englishValue = 'zero';
+        console.log(englishValue);
+        return englishValue;
+    }
+
     for (let i = 0; i < Math.ceil(param.length / 3); i ++) {
         let tempValue = '';
         const group = param.substr(i * 3, 3);
