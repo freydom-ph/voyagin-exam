@@ -1,13 +1,24 @@
-const getEnglishValue = param => {
+const getEnglishValue = (param = process.argv[2]) => {
     let englishValue = '';
 
     // Check for non-number entries???
     for (let iter = 0; iter < param.length; iter ++) {
+        // Reverse the number and evaluate
         const currentNumber = param.charAt(iter);
-        englishValue = getSingleDigitValue(currentNumber);
+        const prevNumber = param.charAt(iter - 1);
+        const nextNumber = param.charAt(iter + 1);
+
+        // If two digit number
+        if (nextNumber.length > 0) {
+            englishValue = `${getTenToNineteen(`${currentNumber}${nextNumber}`)}`;
+            iter ++;
+        } else {
+            // Single digit number
+            englishValue = `${getSingleDigitValue(currentNumber)} ${englishValue}`;
+        }
     }
 
-    return englishValue;
+    return englishValue.trim();
 };
 
 const getSingleDigitValue = number => {
@@ -25,4 +36,21 @@ const getSingleDigitValue = number => {
     }
 };
 
+const getTenToNineteen = number => {
+    switch(number) {
+        case '10': return 'ten';
+        case '11': return 'eleven';
+        case '12': return 'twelve';
+        case '13': return 'thirteen';
+        case '14': return 'fourteen';
+        case '15': return 'fifteen';
+        case '16': return 'sixteen';
+        case '17': return 'seventeen';
+        case '18': return 'eighteen';
+        case '19': return 'nineteen';
+        default: return '';
+    }
+};
+
 module.exports.getEnglishValue = getEnglishValue;
+module.exports.init = getEnglishValue();
