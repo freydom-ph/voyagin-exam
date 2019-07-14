@@ -1,9 +1,11 @@
 const getEnglishValue = (param = process.argv[2]) => {
     let englishValue = '';
     param = param.split('').reverse().join('');
-    
+
     // Check for non-number entries???
-    for (let iter = 0; iter < param.length; iter ++) {
+    for (let iter = 0; iter < param.length; iter++) {
+        // Counter should reset after 3 counts to separate hundreds, thousands, millions, etc.
+        let counter = 1;
         const currentNumber = parseInt(param.charAt(iter));
         const prevNumber = parseInt(param.charAt(iter - 1));
         const nextNumber = parseInt(param.charAt(iter + 1));
@@ -11,21 +13,29 @@ const getEnglishValue = (param = process.argv[2]) => {
         let numberToCheck = parseInt(`${nextNumber}${currentNumber}`);
 
         // If two digit number
-        if (nextNumber > 0) {
+        if (nextNumber <= 1 && counter < 2) {
             if (nextNumber < 2) {
                 englishValue = `${getTenToNineteen(numberToCheck)} ${englishValue}`;
             } else {
                 englishValue = `${getTens(nextNumber)} ${getSingleDigitValue(currentNumber)} ${englishValue}`;
             }
-            iter ++;
+            iter++;
+            counter++;
         } else {
             // Single digit number
-            englishValue = `${getSingleDigitValue(currentNumber)} ${englishValue}`;
+            // Hundreds should also be placed here
+            englishValue = `${getSingleDigitValue(currentNumber)} ${(iter + 1) % 3 === 0 ?  'hundred' : ''} ${englishValue}`;
+        }
+
+        counter++;
+        if (counter === 4) {
+            counter = 1;
         }
     }
 
-    console.log(englishValue.trim());
-    return englishValue.trim();
+    // Remove all extra spaces
+    console.log(englishValue.replace(/\s{2}/g, ' ').trim());
+    return englishValue.replace(/\s{2}/g, ' ').trim();
 };
 
 const getSingleDigitValue = number => {
