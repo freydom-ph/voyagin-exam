@@ -28,6 +28,7 @@ const getEnglishValue = (param = process.argv[2]) => {
     param = param.split('').reverse().join('');
 
     for (let i = 0; i < Math.ceil(param.length / 3); i ++) {
+        let tempValue = '';
         const group = param.substr(i * 3, 3);
         const firstNumber = parseInt(group[0]);
         // We have to set a default value of 0 to second and third numbers
@@ -38,14 +39,22 @@ const getEnglishValue = (param = process.argv[2]) => {
 
         // Check if single number (1 to 9)
         if (firstTwoNumbers < 10) {
-            englishValue = `${getSingleDigitValue(firstNumber)} ${englishValue}`;
+            tempValue = `${getSingleDigitValue(firstNumber)} ${tempValue}`;
         } else if (firstTwoNumbers >= 10 && firstTwoNumbers < 20) {
-            englishValue = `${getTenToNineteen(firstTwoNumbers)} ${englishValue}`;
+            tempValue = `${getTenToNineteen(firstTwoNumbers)} ${tempValue}`;
+        } else if (firstTwoNumbers >= 20) {
+            tempValue = `${getTens(secondNumber)} ${getSingleDigitValue(firstNumber) || ''}`;
         }
+
+        if (thirdNumber > 0) {
+            tempValue = `${getSingleDigitValue(thirdNumber)} hundred ${tempValue}`;
+        }
+
+        englishValue = `${tempValue} ${getExtension(i)}`;
 
     }
 
-    console.log(englishValue.replace(/\s{2}/g, ' ').trim());
+    console.log(englishValue.replace(/[\s]+/g, ' ').trim());
     return englishValue.replace(/\s{2}/g, ' ').trim();
 };
 
@@ -90,6 +99,15 @@ const getTens = number => {
         case 7: return 'seventy';
         case 8: return 'eighty';
         case 9: return 'ninety';
+        default: return '';
+    }
+};
+
+const getExtension = position => {
+    switch(position) {
+        case 1: return 'thousand';
+        case 2: return 'million';
+        case 3: return 'billion';
         default: return '';
     }
 };
