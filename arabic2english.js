@@ -50,7 +50,7 @@ const getEnglishValue = (param = process.argv[2]) => {
             tempValue = `${getSingleDigitValue(thirdNumber)} hundred ${tempValue}`;
         }
 
-        englishValue = `${tempValue} ${getExtension(i)} ${englishValue}`;
+        englishValue = `${tempValue} ${tempValue.trim() ? getExtension(i) || '' : ''} ${englishValue}`;
     }
 
     console.log(englishValue.replace(/[\s]+/g, ' ').trim());
@@ -107,6 +107,7 @@ const getExtension = position => {
         case 1: return 'thousand';
         case 2: return 'million';
         case 3: return 'billion';
+        case 4: return 'trillion';
         default: return '';
     }
 };

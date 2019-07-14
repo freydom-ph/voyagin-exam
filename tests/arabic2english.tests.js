@@ -269,23 +269,23 @@ describe('Tests the arabic2english module', () => {
     });
 
     it('should return "seven hundred million one hundred"', () => {
-        assert.strictEqual(arabic2Enlgish.getEnglishValue('70000100'), 'seven hundred million one hundred');
+        assert.strictEqual(arabic2Enlgish.getEnglishValue('700000100'), 'seven hundred million one hundred');
     });
 
     it('should return "one billion"', () => {
-        assert.strictEqual(arabic2Enlgish.getEnglishValue('100000000'), 'one billion');
+        assert.strictEqual(arabic2Enlgish.getEnglishValue('1000000000'), 'one billion');
     });
 
     it('should return "one billion fifty thousand"', () => {
-        assert.strictEqual(arabic2Enlgish.getEnglishValue('100050000'), 'one billion fifty thousand');
+        assert.strictEqual(arabic2Enlgish.getEnglishValue('1000050000'), 'one billion fifty thousand');
     });
 
-    it('should return "one billion fifty thousand"', () => {
-        assert.strictEqual(arabic2Enlgish.getEnglishValue('100050001'), 'one billion fifty thousand one');
+    it('should return "one billion fifty thousand one"', () => {
+        assert.strictEqual(arabic2Enlgish.getEnglishValue('1000050001'), 'one billion fifty thousand one');
     });
 
-    it('should return "one billion fifty thousand"', () => {
-        assert.strictEqual(arabic2Enlgish.getEnglishValue('100000001'), 'one billion one');
+    it('should return "one billion one"', () => {
+        assert.strictEqual(arabic2Enlgish.getEnglishValue('1000000001'), 'one billion one');
     });
 
     it('should return "sixty billion six hundred thousand"', () => {
